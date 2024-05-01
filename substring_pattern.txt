@@ -1,0 +1,60 @@
+------------- Faulty Logic (1) 
+
+s = "abaababaab"  # to work on
+char = s[0]  # the index of the str to break/split on
+sub = []  # list to store the substrings
+current_sub = ""  # str to store the current substring
+
+for i in s:
+    if char == i and current_sub:
+        # Add the current substring to the list and start a new one
+        sub.append(current_sub)
+        current_sub = i
+    else:
+        # Add the character to the current substring
+        current_sub += i
+
+# add the last str from the current to sub list
+# if current is not empty
+if current_sub:
+    sub.append(current_sub)
+
+print(sub)
+
+if len(s) == 1:
+    print("False")
+elif set(sub) == {sub[0]}:
+    print("True")
+else:
+    print("False")
+
+
+------------------------------
+------------- Faulty Logic (2)
+- negative/positive lookahead
+
+import re
+
+
+s = "abcabcabcabc"
+char = s[0]
+count = 0
+sub = []
+
+for i in s:
+    if i == char:
+        print(i)
+        sub = re.split(f"(?<={i})", s)  # faulty line
+        count += 1
+
+empty = ''
+for i in sub:
+    if i == empty:
+        sub.remove(empty)
+
+print(sub)
+
+if set(sub) == {sub[0]}:
+    print("True")
+else:
+    print("False")
